@@ -1,0 +1,5 @@
+repository\StudentRepository.class
+lab\Application.class
+entity\Student.class
+lab\ApplicationConfig.class
+lab\controller\StudentController.class
