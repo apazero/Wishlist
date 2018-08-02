@@ -1,12 +1,15 @@
 package com.claim.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Item {
@@ -24,11 +27,21 @@ public class Item {
 	@Column(name="ITEM_NOTE")
 	private String itemNote;
 	
-	@ManyToOne()
-	@JoinColumn(name="ein")
+
+	@JsonBackReference
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="ORG_EIN")
 	private Organization org;
 	
-	
+//	@Column(name="ORG_EIN")
+//	private Integer orgEin;
+
+//	public Integer getOrgEin() {
+//		return orgEin;
+//	}
+//	public void setOrgEin(Integer orgEin) {
+//		this.orgEin = orgEin;
+//	}
 	public int getItemId() {
 		return itemId;
 	}
@@ -59,6 +72,7 @@ public class Item {
 	public void setItemNote(String itemNote) {
 		this.itemNote = itemNote;
 	}
+	//@JsonIgnore
 	public Organization getOrg() {
 		return org;
 	}

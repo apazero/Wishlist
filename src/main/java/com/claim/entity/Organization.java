@@ -6,8 +6,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Organization {
@@ -38,10 +41,19 @@ public class Organization {
 	@Column(name="ACTIVE")
 	private boolean active = true;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="org")
+	@JsonManagedReference
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="org", fetch=FetchType.EAGER)
 	private List<Location> locations = new ArrayList<>();
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="org")
-	private List<Item> wishlist = new ArrayList<>();
+	
+	//@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "holidayDates")
+    //private Set<HolidayDates> holidayDates;
+	
+	//@OneToMany(mappedBy = "order")
+    //private List<Item> items = new ArrayList<Item>();
+	
+	@JsonManagedReference
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="org", fetch=FetchType.EAGER)
+	private List<Item> wishList = new ArrayList<>();
 	
 	public String getEin() {
 		return ein;
@@ -121,11 +133,11 @@ public class Organization {
 	public void setLocations(List<Location> locations) {
 		this.locations = locations;
 	}
-	public List<Item> getWishlist() {
-		return wishlist;
+	public List<Item> getWishList() {
+		return wishList;
 	}
-	public void setWishlist(List<Item> wishlist) {
-		this.wishlist = wishlist;
+	public void setWishList(List<Item> wishList) {
+		this.wishList = wishList;
 	}
 	
 	

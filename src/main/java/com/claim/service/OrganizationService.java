@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.claim.entity.Item;
 import com.claim.entity.Organization;
 import com.claim.repository.OrganizationRepository;
 
@@ -27,6 +28,13 @@ public class OrganizationService {
 		System.out.println("in service");
 		return organizationRepository.getByOrgName(orgName);
 	}
+	
+	public ArrayList<Organization> getByItem(String itemName) {
+		System.out.println("in service");
+		return organizationRepository.getByItem(itemName);
+	}
+	
+	
 
 
 	

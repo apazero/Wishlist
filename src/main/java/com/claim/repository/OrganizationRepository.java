@@ -18,7 +18,17 @@ public interface OrganizationRepository extends JpaRepository<Organization, Stri
 	@Query("Select O from Organization O where ein=:ein and pass_word=:password")
 	public Organization loginOrg (@Param("ein") String ein, @Param("password") String password);
 	
-	@Query("Select O from Organization O where Registered_State='MO' and Business_Name like %:orgName%")
+	@Query("Select O from Organization O where registeredState='MO' and businessName like %:orgName%")
 	public ArrayList<Organization> getByOrgName(@Param("orgName") String orgName);
+	
+	//select business_name
+	//from organization as o
+	//join item as i on o.ein=i.ein
+	//where item_name like '%itemName%';
+	@Query(value="Select O.* from Organization as O join Item as I on O.ein=I.org_ein where item_name like %?1%", 
+			nativeQuery=true)
+	public ArrayList<Organization> getByItem(@Param("itemName") String itemName);
 }
+
+	
 

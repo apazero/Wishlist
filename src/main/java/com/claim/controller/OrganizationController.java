@@ -39,12 +39,13 @@ public class OrganizationController {
 	 private ResponseEntity<Organization> loginOrg(@RequestBody Organization org) { 
 		System.out.println("in controller");
 		 Organization loggedInOrg = organizationService.getOrg(org.getEin(), org.getPassword());
-		 //repo.findOne(student.getEmail());foundStudent.getPassword().equals(student.getPassword()
+		 System.out.println("loggedIn: "+loggedInOrg);
 		 if (loggedInOrg != null) {
 			 return new ResponseEntity<>(loggedInOrg, HttpStatus.OK);
 		 }
 		 else {
 			 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		 
 		 }
 		 
 	}
@@ -63,5 +64,22 @@ public class OrganizationController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	 
+	 @RequestMapping(value="/getByItem",
+			 produces=MediaType.APPLICATION_JSON_VALUE, 
+			 method= RequestMethod.GET ) 
+	@ResponseBody private ResponseEntity<ArrayList<Organization>> getByItem(String itemName) {
+		 System.out.println("in org controller");
+		ArrayList<Organization> orgsByItem = organizationService.getByItem(itemName);
+		if (orgsByItem != null) {
+			System.out.println("in controller items is populated");
+			return new ResponseEntity<>(orgsByItem, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	 
+	 
 		 
 }
